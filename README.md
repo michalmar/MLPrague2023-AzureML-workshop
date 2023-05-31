@@ -1,6 +1,79 @@
 In this lab, you’ll learn how to train a model in the cloud, and how to ensure it performs responsibly. We’ll be using the [UCI hospital diabetes dataset](https://archive.ics.uci.edu/ml/machine-learning-databases/00296/) to train a classification model using the Scikit-Learn framework. The model will predict whether or not a diabetic patient will be readmitted back to a hospital within 30 days of being discharged.
 
 
+# Setup environment: Create AzureML Workspace in Azure
+## Create a workspace
+
+A workspace is a foundational resource in the cloud that you use to experiment, train, and deploy machine learning models. It ties your Azure subscription and resource group to an easily consumed object in the SDK. If you already have an Azure Machine Learning service workspace, skip to the [next section](#azure). Otherwise, create one now.
+
+
+1. Sign in to [Azure portal](https://portal.azure.com/) by using the credentials for your Azure subscription.
+
+1. In the upper-left corner of Azure portal, select **+ Create a resource**.
+
+    ![Create a new resource](img/create-workspace.gif)
+
+1. Use the search bar to find **Machine Learning**.
+
+1. Select **Machine Learning**.
+
+1. In the **Machine Learning** pane, select **Create** to begin.
+
+1. Provide the following information to configure your new workspace:
+
+   Field|Description 
+   ---|---
+   Workspace name |Enter a unique name that identifies your workspace. In this example, we use **docs-ws**. Names must be unique across the resource group. Use a name that's easy to recall and to differentiate from workspaces created by others.  
+   Subscription |Select the Azure subscription that you want to use.
+   Resource group | Use an existing resource group in your subscription or enter a name to create a new resource group. A resource group holds related resources for an Azure solution. In this example, we use **docs-aml**. 
+   Location | Select the location closest to your users and the data resources to create your workspace.
+   Workspace edition | Select **Basic** as the workspace type for this tutorial. The workspace type (Basic & Enterprise) determines the features to which you’ll have access and pricing. Everything in this tutorial can be performed with either a Basic or Enterprise workspace.
+
+1. After you are finished configuring the workspace, select **Review + Create**. 
+
+   > [!Warning] 
+   > It can take several minutes to create your workspace in the cloud.
+
+   When the process is finished, a deployment success message appears. 
+ 
+ 1. To view the new workspace, select **Go to resource**.
+
+
+## Upload and work with Notebooks
+
+The Notebooks section in your workspace is a good place to start learning about Azure Machine Learning and its capabilities.  Here you can connect to compute resources, work with a terminal, and edit and run Jupyter Notebooks and scripts.  
+
+1. Sign in to [Azure Machine Learning studio](https://ml.azure.com).
+1. Select your workspace if it isn't already open.
+1. On the left navigation, select **Notebooks**.
+1. If you don't have a compute instance, you'll see **Create compute** in the middle of the screen. Select **Create compute** and fill out the form.  You can use all the defaults. (If you already have a compute instance, you'll instead see **Terminal** in that spot.  You'll use **Terminal** later in this tutorial.)
+
+    ![Screenshot shows how to create a compute instance.](img/create-compute.png)
+
+
+### Upload notebooks files
+
+In order for your script to run, you need to be working in an environment configured with the dependencies and libraries the code expects. This section helps you create an environment tailored to your code. To create the new Jupyter kernel your notebook connects to, you'll use a YAML file that defines the dependencies.
+
+* **Upload a file.**
+
+    Files you upload are stored in an Azure file share, and these files are mounted to each compute instance and shared within the workspace.
+
+    1. Download this conda environment file, [*workstation_env.yml*](https://azuremlexampledata.blob.core.windows.net/datasets/workstation_env.yml) to your computer.
+    1. Select **Add files**, then select **Upload files** to upload it to your workspace.
+
+
+        ![Screenshot shows how to upload files to your workspace.](img/upload-files.png)
+
+    1. Select **Browse and select file(s)**.
+    1. Select ***.ipynb** files you downloaded.
+    1. Select **Upload**.
+
+    >Note: It is better to upload whole folder you downloaded or clone the whole repo using Terminal.
+
+    More can be found [here](https://learn.microsoft.com/en-us/azure/machine-learning/tutorial-cloud-workstation?view=azureml-api-2).
+
+
 # Exercise 1: Training a model in the cloud
 
 In this exercise, you'll train a custom model using Azure ML. Training in the cloud allows you to scale your training to use more compute power, and to track model versions.
